@@ -13,11 +13,17 @@ Be sure to update the repository url in `/.chglog/.config.yml`
 
 ## Generate a new CHANGELOG.md
 
-* `git tag v0.0.1`
 * `git-chglog -o CHANGELOG.md`
+
+# RELEASE TAG
+
+There is a script that will manage these steps [release.sh](https://github.com/nthomas20/template/blob/master/scripts/release.sh)
+
+* `git-chglog --next-tag v0.0.1 -o CHANGELOG.md`
 * `git commit -m 'changelog' CHANGELOG.md`
 * `git push`
-* `git push --tags`
+* `git tag v0.0.1`
+* `git push origin v0.0.1`
 
 # ISSUE AUTOMATION
 
