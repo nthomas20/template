@@ -1,5 +1,12 @@
 #!/bin/bash
 
+function check_error() {
+    if [[ $? != "0" ]]; then
+        echo "An error occurred. Release Canceled"
+        exit
+    fi
+}
+
 VERSION=$1
 EXISTS=`git tag -l $VERSION`
 BRANCH=`git branch --show-current`
@@ -25,6 +32,21 @@ if [[ $VERSION == $EXISTS ]]; then
     exit
 fi
 
+# Make sure the user has push capabilities to master
+while true; do
+    read -p "Are you an administrator who can push to master without a PR (if unsure type no) [yes|no]?" yn
+    case $yn in
+        ["yes"]* )
+            break;;
+        ["no"]* )
+            echo "Release Canceled";
+            exit;;
+        * )
+            echo "Please answer only yes or no";;
+    esac
+done
+
+# Make sure the user actually wants to craft a release
 while true; do
     read -p "Are you sure you wish to release $VERSION [yes|no]?" yn
     case $yn in
@@ -40,11 +62,18 @@ done
 
 read -p "Enter a one-line release note if you like, otherwise press enter: " NOTE
 
+# Run the release!
 git-chglog --next-tag $VERSION -o CHANGELOG.md
+check_error
 
-echo Committing Changelog and pushing
+# Commit the changelog file
+echo "Committing and pushing CHANGELOG.md"
 git commit -m 'changelog' CHANGELOG.md
+check_error
+
+# Push the changelog file to master
 git push
+check_error
 
 if [ -z "$NOTE" ]; then
     echo "Creating Tag"
@@ -54,5 +83,6 @@ else
     git tag -a $VERSION -m "$NOTE"
 fi
 
-echo Pushing Release
+echo "Pushing Release"
 git push origin $VERSION
+check_error
