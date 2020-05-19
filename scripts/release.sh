@@ -63,17 +63,21 @@ done
 read -p "Enter a one-line release note if you like, otherwise press enter: " NOTE
 
 # Run the release!
-git-chglog --next-tag $VERSION -o CHANGELOG.md
-check_error
 
-# Commit the changelog file
-echo "Committing and pushing CHANGELOG.md"
-git commit -m 'changelog' CHANGELOG.md
-check_error
+# Check if we have the changelog directory, if not -- don't run it
+if [ -d ".chglog" ]; then
+    git-chglog --next-tag $VERSION -o CHANGELOG.md
+    check_error
 
-# Push the changelog file to master
-git push
-check_error
+    # Commit the changelog file
+    echo "Committing and pushing CHANGELOG.md"
+    git commit -m 'changelog' CHANGELOG.md
+    check_error
+
+    # Push the changelog file to master
+    git push
+    check_error
+fi
 
 if [ -z "$NOTE" ]; then
     echo "Creating Tag"
