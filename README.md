@@ -14,3 +14,7 @@ Be sure to tag, before running
 Be sure to update the repository url in `/.chglog/.config.yml`
 
 `repository_url: #UPDATE_REPOSITORY_URL`
+
+# ISSUE AUTOMATION
+
+Create branch from issue using [create-issue-branch](https://github.com/robvanderleek/create-issue-branch)
