@@ -7,14 +7,23 @@ This repository serves as an initial template for my favourite github repository
 
 Changelog automation using well-formed commit messages using [git-chglog](https://github.com/git-chglog/git-chglog)
 
-Be sure to tag, before running
-
-`git-chglog -o CHANGELOG.md`
-
 Be sure to update the repository url in `/.chglog/.config.yml`
 
 `repository_url: #UPDATE_REPOSITORY_URL`
 
+## Generate a new CHANGELOG.md
+
+* `git tag v0.0.1`
+* `git-chglog -o CHANGELOG.md`
+* `git commit -m 'changelog' CHANGELOG.md`
+* `git push`
+* `git push --tags`
+
 # ISSUE AUTOMATION
 
-Create branch from issue using [create-issue-branch](https://github.com/robvanderleek/create-issue-branch)
+[create-issue-branch](https://github.com/robvanderleek/create-issue-branch)
+
+* Assign the issue to an individual and it will create a branch
+  * The configuration here is for short name (e.g. `issue-1`)
+* This will add a comment in the issue with a link to the branch (you may need to refresh to see the comment immediately)
+  * `git pull && git checkout issue-1`
