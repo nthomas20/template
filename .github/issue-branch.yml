@@ -1,0 +1,11 @@
+# https://github.com/marketplace/actions/create-issue-branch#configuration
+mode: auto
+silent: false
+branchName: short
+branches:
+    - label: enhancement
+      name: master
+    - label: bug
+      name: master
+    - label: '*'
+      name: master
