@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: 'fix( ?? ): Summary of what needs to be fixed'
-labels: bug
+labels: Type:Bug
 assignees: ''
 
 ---
